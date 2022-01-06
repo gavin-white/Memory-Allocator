@@ -49,16 +49,14 @@ void *altmalloc(size_t s) {
 }
 
 void *altcalloc(size_t nmemb, size_t s) {
-  char * p;
+  void * p;
   p = altmalloc(nmemb * s);
 
-  if (p == -1) {
+  if (p == (void *) -1) {
     return NULL;
   }
-
-  for (int i = 0; i < nmemb * s; ++i) {
-    p[i] = 0;
-  }
+  
+  memset(p, 0, nmemb * s);
   
   return p;
 }
